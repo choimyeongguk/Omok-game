@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void prt_board(int* board, int n) ;
+int check(int *board, int line) ;
+void prt_board(int* board, int n, int x, int y) ;
 
 int main()
 {
@@ -11,7 +12,7 @@ int main()
     printf("line size : ") ; // 승리 조건 입력
     scanf("%d", &line) ;
 
-    /* 2차원 배열 동적 할당 */
+    /* 배열 동적 할당 */
     int* board ;
     board = (int*)malloc(sizeof(int)*(n*n)) ;
 
@@ -64,6 +65,40 @@ int main()
     /* 저장공간 해제 */
     free(board) ;
     return 0 ;
+}
+
+int check(int* board, int n, int line, int x, int y)
+{
+    int blockage = 0 ;  // 0 - 안막힘, 1 - 막힘
+    int stack=0, i ;
+    line = line%2==0?line/2:(line-1)/2 ;
+
+    for(x=0;x<2;x++)
+    {
+        for(y=-1;y<2;y=y+2)
+        {
+            for(i=1;i<line+1;i++)
+            {
+                if(*(board+n*y+x+i))
+            }
+        }
+    }
+    /*for(i=1;i<line+1;i++)
+    {
+        if(*(board+n*y+x+i)==*(board+n*y+x))
+        {
+            stack++ ;
+        }
+        else break ;
+    }
+    for(i=1;i<line+1;i++)
+    {
+        if(*(board+n*y+x-i)==*(board+n*y+x))
+        {
+            stack++ ;
+        }
+        else break ;
+    }*/
 }
 
 /* 바둑판 출력 함수 */

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int check(int *board, int line) ;
-void prt_board(int* board, int n, int x, int y) ;
+int check(int *board, int n, int line, int x, int y) ;
+void prt_board(int* board, int n) ;
 
 int main()
 {

@@ -1,37 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-int print(int* list)
-{
-    for(int i=0;i<2;i++)
-    {
-        for(int j=0;j<2;j++)
-        {
-            printf("%d ", *(list+i*2+j)) ;
-        }
-        printf("\n") ;
-    }
-}
+#define n 5
 
 int main()
 {
-    int n ;
-    scanf("%d", &n) ;
+    int i, j ;
+    //const int n = 5 ;
+    int board[n][n] = {0,};
 
-    int **arr ;
-    arr = (int) malloc (sizeof(int)*n) ;
-    for(int i=0;i<n;i++)
+    /*for(i=0;i<n;i++)
     {
-        arr[i] = (int) malloc (sizeof(int)*n) ;
-    }
-
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
+        for(j=0;j<n;j++)
         {
-            arr[i][j] = i*n+j ;
+            board[i][j] = 0 ;
         }
-    }
+    }*/
 
-    print(*arr) ;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d", board[j][i]) ;
+        }
+        printf("\n") ;
+    }
 }

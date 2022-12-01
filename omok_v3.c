@@ -1,3 +1,4 @@
+
 // problem : 범위 넘는 좌표 입력 시 문제
 
 #include <stdio.h>
@@ -10,15 +11,20 @@ int main()
 {
     int i, j, k, x, y, n, turn=0, turnNum=0 ;
 
-    printf("  choose board size (9x9 or 15x15) : ") ;
+    reput_board: printf("  choose board size (9x9 ~ 15x15) : ") ;
     scanf("%d", &n) ;
+    if(n<9)
+    {
+        printf("  The board size must be at least 9x9\n") ;
+        goto reput_board ;
+    }
     int board[n][n] ;
     for(i=0;i<n;i++) for(j=0;j<n;j++) board[i][j] = 0 ;
 
     prt_board(board, n) ;
 
     /* play game */
-    while(turnNum<=n*n)
+    while(turnNum<n*n)
     {
         if(turn==0)  // 검은돌 순서면
         {
@@ -26,29 +32,26 @@ int main()
             reput_b: printf("  black >> ") ;
             scanf("%x %x", &x, &y) ;  // 좌표 입력
             x-- ; y-- ; // 1부터 시작 -> 0부터 시작
-            if(0<=x<=n && 0<=y<=n)
-            {
-                if(board[y][x]==1 || board[y][x]==2)  // 이미 놓은 돌 있는지 확인
-                {
-                    printf("  already laid\n\n") ;
-                    goto reput_b ;  // 다시 반복
-                }
-                else
-                {
-                    board[y][x] = 1 ;  // 돌 놓기
-                    prt_board(board, n) ;  // 결과 출력
-                    if(check(board, n, x, y)==1)
-                    {
-                        printf("\n  BLACK WIN!!") ;
-                        break ;
-                    }
-                    turn = 1 ;  // 순서 전환
-                }
-            }
-            else
+            if(x<0 || x>n || y<0 || y>n)
             {
                 printf("  wrong coordinate\n\n") ;
                 goto reput_b ;
+            }
+            if(board[y][x]==1 || board[y][x]==2)  // 이미 놓은 돌 있는지 확인
+            {
+                printf("  already laid\n\n") ;
+                goto reput_b ;  // 다시 반복
+            }
+            else
+            {
+                board[y][x] = 1 ;  // 돌 놓기
+                prt_board(board, n) ;  // 결과 출력
+                if(check(board, n, x, y)==1)
+                {
+                    printf("\n  [ BLACK WIN!! ]") ;
+                    break ;
+                }
+                turn = 1 ;  // 순서 전환
             }
         }
         else
@@ -57,33 +60,30 @@ int main()
             reput_w: printf("  white >> ") ;
             scanf("%x %x", &x, &y) ;
             x-- ; y-- ;
-            if(0<=x<=n && 0<=y<=n)
-            {
-                if(board[y][x]==1 || board[y][x]==2)
-                {
-                    printf("  already laid\n\n") ;
-                    goto reput_w ;
-                }
-                else
-                {
-                    board[y][x] = 2 ;
-                    prt_board(board, n) ;
-                    if(check(board, n, x, y)==1)
-                    {
-                        printf("  WHITE WIN!!") ;
-                        break ;
-                    }
-                    turn = 0 ;
-                }
-            }
-            else
+            if(x<0 || x>n || y<0 || y>n)
             {
                 printf("  wrong coordinate\n\n") ;
                 goto reput_w ;
             }
+            if(board[y][x]==1 || board[y][x]==2)
+            {
+                printf("  already laid\n\n") ;
+                goto reput_w ;
+            }
+            else
+            {
+                board[y][x] = 2 ;
+                prt_board(board, n) ;
+                if(check(board, n, x, y)==1)
+                {
+                    printf("  [ WHITE WIN!! ]") ;
+                    break ;
+                }
+                turn = 0 ;
+            }
         }
-
     }
+    if(turnNum==n*n) printf("  [ TIE ]\n") ;
 
     return 0 ;
 }
@@ -112,7 +112,6 @@ int check(int* board, int n, int x, int y)
             } else l = 1 ;
         }
     }
-    printf("  horizontal stack : %d\n", stack) ;
     if(stack>line-1) goto gameover ;
 
     stack=1 ; r=0 ; l=0 ;
@@ -134,7 +133,6 @@ int check(int* board, int n, int x, int y)
             } else l = 1 ;
         }
     }
-    printf("  vertical stack : %d\n", stack) ;
     if(stack>line-1) goto gameover ;
 
     stack=1 ; r=0 ; l=0 ;
@@ -156,7 +154,6 @@ int check(int* board, int n, int x, int y)
             } else l = 1 ;
         }
     }
-    printf("  positive diagonal stack : %d\n", stack) ;
     if(stack>line-1) goto gameover ;
 
     stack=1 ; r=0 ; l=0 ;
@@ -178,7 +175,6 @@ int check(int* board, int n, int x, int y)
             } else l = 1 ;
         }
     }
-    printf("  negative diagonal stack : %d\n\n", stack) ;
     if(stack>line-1) goto gameover ;
     else return 0 ;
 

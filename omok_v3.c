@@ -1,3 +1,5 @@
+// problem : 범위 넘는 좌표 입력 시 문제
+
 #include <stdio.h>
 #define line 5
 
@@ -195,7 +197,7 @@ void prt_board(int* board, int n)
     for(i=0;i<n;i++)  // y좌표
     {
         printf("    ") ;
-        for(j=0;j<n*4-1;j++) printf("-") ;
+        for(j=0;j<n;j++) printf("--- ") ;
         printf("\n %x |", i+1) ;
         for(j=0;j<n;j++)  // x좌표
         {
@@ -214,7 +216,7 @@ void prt_board(int* board, int n)
         }
         printf("\n") ;
     }
-    printf("     ") ;
-    for(i=0;i<n*4-1;i++) printf("-") ;
+    printf("    ") ;
+    for(i=0;i<n;i++) printf("--- ") ;
     printf("\n\n") ;
 }

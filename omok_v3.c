@@ -1,6 +1,3 @@
-
-// problem : 범위 넘는 좌표 입력 시 문제
-
 #include <stdio.h>
 #define line 5
 
